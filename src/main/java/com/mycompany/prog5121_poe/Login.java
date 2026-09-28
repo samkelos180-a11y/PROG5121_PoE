@@ -48,7 +48,7 @@ public class Login {
 
         return hasCapital && hasNumber && hasSpecial;
     }
-    //Checks international code number and is <= 12 characters
+    //Checks international code number and is less than 12 characters
         public boolean checkCellPhoneNumber(String cellNumber) {
         if (cellNumber == null) {
             return false;
