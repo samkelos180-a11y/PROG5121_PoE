@@ -48,4 +48,12 @@ public class Login {
 
         return hasCapital && hasNumber && hasSpecial;
     }
-}
+    //Checks international code number and is less than 12 characters
+        public boolean checkCellPhoneNumber(String cellNumber) {
+        if (cellNumber == null) {
+            return false;
+        }
+        // Regex: starts with +27, followed by 7 to 9 digits
+        String regex = "^\\+27[0-9]{7,9}$";
+        return cellNumber.matches(regex);
+    }
