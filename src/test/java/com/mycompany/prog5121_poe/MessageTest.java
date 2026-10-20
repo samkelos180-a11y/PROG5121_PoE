@@ -1,18 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package com.mycompany.prog5121_poe;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author 20191
- */
 public class MessageTest {
-     @Test
+
+    @Test
     public void testMessageLength() {
         String validMessage = "Hi Mike, can you join us for dinner tonight?";
         assertTrue(validMessage.length() <= 250, "Message ready to send.");
@@ -23,8 +16,9 @@ public class MessageTest {
 
     @Test
     public void testRecipientFormat() {
-        Message testMsg = new Message(1, "+27718693002", "Test message");
-        assertEquals("Cell phone number successfully captured.", testMsg.checkRecipientCell());
+        // Using the exact test data from your assignment document
+        Message validMsg = new Message(1, "+27718693002", "Test message");
+        assertEquals("Cell phone number successfully captured.", validMsg.checkRecipientCell());
         
         Message invalidMsg = new Message(2, "08575975889", "Test message");
         assertEquals("Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.", invalidMsg.checkRecipientCell());

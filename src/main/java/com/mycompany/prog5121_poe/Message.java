@@ -13,7 +13,6 @@ public class Message {
     private String messageText;
     private String messageHash;
     
-    // Static lists to keep track of messages across the program
     public static ArrayList<Message> sentMessages = new ArrayList<>();
     public static int totalMessagesSent = 0;
 
@@ -30,7 +29,9 @@ public class Message {
     }
 
     public String checkRecipientCell() {
-        if (this.recipient.matches("^\\+[0-9]{9,10}$") && this.recipient.length() <= 10) {
+        // Checks if it starts with '+' and the total length is between 10 and 12 characters
+        // (e.g., +27718693002 is valid, 08575975889 is invalid)
+        if (this.recipient != null && this.recipient.startsWith("+") && this.recipient.length() >= 10 && this.recipient.length() <= 12) {
             return "Cell phone number successfully captured.";
         } else {
             return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
@@ -97,7 +98,6 @@ public class Message {
         return String.valueOf(id);
     }
 
-    // Getters for testing later
     public String getMessageID() { return messageID; }
     public String getMessageHash() { return messageHash; }
     public String getRecipient() { return recipient; }
