@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.prog5121_poe;
+/* @author Samkelo*/
 
-/**
- *
- * @author 20191
- */
-package com.mycompany.prog5121_poe;
-
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Message {
@@ -19,6 +13,7 @@ public class Message {
     private String messageText;
     private String messageHash;
     
+    // Static lists to keep track of messages across the program
     public static ArrayList<Message> sentMessages = new ArrayList<>();
     public static int totalMessagesSent = 0;
 
@@ -26,8 +21,11 @@ public class Message {
         this.messageNumber = messageNumber;
         this.recipient = recipient;
         this.messageText = messageText;
+        this.messageID = generateID();
+        this.messageHash = createMessageHash();
     }
-        public boolean checkMessageID() {
+
+    public boolean checkMessageID() {
         return this.messageID.length() <= 10;
     }
 
@@ -47,4 +45,60 @@ public class Message {
         String lastWord = words[words.length - 1].toUpperCase().replaceAll("[^A-Z]", "");
         return idPart + ":" + this.messageNumber + ":" + firstWord + lastWord;
     }
+
+    public String SentMessage(int choice) {
+        switch (choice) {
+            case 1:
+                sentMessages.add(this);
+                totalMessagesSent++;
+                return "Message successfully sent.";
+            case 2:
+                return "Press 0 to delete the message.";
+            case 3:
+                storeMessage();
+                return "Message successfully stored.";
+            default:
+                return "Invalid option.";
+        }
+    }
+
+    public void storeMessage() {
+        try (FileWriter file = new FileWriter("messages.json", true)) {
+            String json = "{\n" +
+                    "  \"messageID\": \"" + this.messageID + "\",\n" +
+                    "  \"messageHash\": \"" + this.messageHash + "\",\n" +
+                    "  \"recipient\": \"" + this.recipient + "\",\n" +
+                    "  \"message\": \"" + this.messageText + "\"\n" +
+                    "},\n";
+            file.write(json);
+        } catch (IOException e) {
+            System.out.println("Error storing message: " + e.getMessage());
+        }
+    }
+
+    public String printMessages() {
+        StringBuilder sb = new StringBuilder();
+        for (Message m : sentMessages) {
+            sb.append("Message ID: ").append(m.messageID)
+              .append("\nMessage Hash: ").append(m.messageHash)
+              .append("\nRecipient: ").append(m.recipient)
+              .append("\nMessage: ").append(m.messageText).append("\n\n");
+        }
+        return sb.toString();
+    }
+
+    public int returnTotalMessages() {
+        return totalMessagesSent;
+    }
+
+    private String generateID() {
+        Random rand = new Random();
+        long id = 1000000000L + (long) (rand.nextDouble() * 9000000000L);
+        return String.valueOf(id);
+    }
+
+    // Getters for testing later
+    public String getMessageID() { return messageID; }
+    public String getMessageHash() { return messageHash; }
+    public String getRecipient() { return recipient; }
 }
