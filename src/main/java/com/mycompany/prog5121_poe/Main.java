@@ -1,5 +1,6 @@
 package com.mycompany.prog5121_poe;
 
+
 import java.util.Scanner;
 /*
 
@@ -61,6 +62,6 @@ public class Main {
         String loginMessage = login.returnLoginStatus(loginUsername, loginPassword);
         System.out.println("\n" + loginMessage);
 
-        scanner.close();
+        scanner.close()
     }
 }
