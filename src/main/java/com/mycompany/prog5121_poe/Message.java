@@ -13,6 +13,9 @@ public class Message {
     private String messageText;
     private String messageHash;
     
+    // --- NEW: Added for POE Part 3 ---
+    private String flag; 
+
     public static ArrayList<Message> sentMessages = new ArrayList<>();
     public static int totalMessagesSent = 0;
 
@@ -29,8 +32,6 @@ public class Message {
     }
 
     public String checkRecipientCell() {
-        // Checks if it starts with '+' and the total length is between 10 and 12 characters
-        // (e.g., +27718693002 is valid, 08575975889 is invalid)
         if (this.recipient != null && this.recipient.startsWith("+") && this.recipient.length() >= 10 && this.recipient.length() <= 12) {
             return "Cell phone number successfully captured.";
         } else {
@@ -101,4 +102,18 @@ public class Message {
     public String getMessageID() { return messageID; }
     public String getMessageHash() { return messageHash; }
     public String getRecipient() { return recipient; }
+    
+    // --- NEW METHODS ADDED BELOW ---
+    
+    public String getMessageText() { 
+        return messageText; 
+    }
+
+    public void setFlag(String flag) { 
+        this.flag = flag; 
+    }
+
+    public String getFlag() { 
+        return flag; 
+    }
 }
